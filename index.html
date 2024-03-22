@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Money Tracker</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Login Page -->
+  <div id="loginPage" class="container">
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body" style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%;">
+            <h3 class="card-title text-center mb-4">Money Tracker</h3>
+            <img src="/Assets/moneyBag.png" alt="" height="150" width="150">
+            <form id="loginForm">
+              <div class="form-group">
+                <label for="username">Nama</label>
+                <input type="text" class="form-control" id="username" required >
+              </div>
+              <button type="submit" class="btn btn-primary btn-block">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="mainPage" class="container d-none">
+    <nav class="navbar navbar-expand-lg navbar-light mb-4" id="navbarWrapper">
+        <span class="navbar-brand" style="color: white;">Hello, <span id="userName"></span>!</span>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#" id="mainLink">Main</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" id="incomeLink">Income</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" id="outcomeLink">Outcome</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="about.html" id="aboutLink">About Me</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" id="logoutLink">Logout</a>
+            </li>
+          </ul>
+        </div>
+    </nav>
+    <div id="card-wrapper">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Balance</h5>
+                <p class="card-text" id="balance">Rp 0</p>
+            </div>
+            </div>
+        
+            <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Transaction History</h5>
+                <ul class="list-group" id="transactionList">
+                <li class="list-group-item">Belum ada transaksi sejauh ini</li>
+                </ul>
+                <button class="btn btn-danger mt-3" id="clearTransactions">Hapus Histori Transaksi</button>
+            </div>
+        </div>
+    </div>    
+  </div>
+
+  <div id="incomePage" class="container d-none mt-3">
+    <h1>Income Page</h1>
+    <form id="incomeForm">
+      <div class="form-group">
+        <label for="incomeName">Nama Transaksi</label>
+        <input type="text" class="form-control" id="incomeName" required>
+      </div>
+      <div class="form-group">
+        <label for="incomeAmount">Nominal Transaksi</label>
+        <input type="number" class="form-control" id="incomeAmount" required>
+      </div>
+      <div class="form-group">
+        <label for="incomeCategory">Kategori Transaksi</label>
+        <select class="form-control" id="incomeCategory" required>
+          <option value="Makan">Makan</option>
+          <option value="Main">Main</option>
+          <option value="Edukasi">Edukasi</option>
+          <option value="Belanja">Belanja</option>
+          <option value="Lainnya">Lainnya</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <button type="button" class="btn btn-secondary mt-3" id="backToMain">Kembali ke Main Page</button>
+  </div>
+
+  <div id="outcomePage" class="container d-none mt-3">
+    <h1>Outcome Page</h1>
+    <form id="outcomeForm">
+      <div class="form-group">
+        <label for="outcomeName">Nama Transaksi</label>
+        <input type="text" class="form-control" id="outcomeName" required>
+      </div>
+      <div class="form-group">
+        <label for="outcomeAmount">Nominal Transaksi</label>
+        <input type="number" class="form-control" id="outcomeAmount" required>
+      </div>
+      <div class="form-group">
+        <label for="outcomeCategory">Kategori Transaksi</label>
+        <select class="form-control" id="outcomeCategory" required>
+          <option value="Makan">Makan</option>
+          <option value="Main">Main</option>
+          <option value="Edukasi">Edukasi</option>
+          <option value="Belanja">Belanja</option>
+          <option value="Lainnya">Lainnya</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary" >Submit</button>
+    </form>
+    <button type="button" class="btn btn-secondary mt-3" id="backToMainOutcome">Kembali ke Main Page</button>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="alertModalLabel">Alert</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Isi pesan alert akan ditampilkan di sini -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal Delete -->
+  <div class="modal fade" id="confirmClearModal" tabindex="-1" role="dialog" aria-labelledby="confirmClearModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmClearModalLabel">Konfirmasi Hapus Histori Transaksi</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Apakah Anda yakin ingin menghapus histori transaksi?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-danger" id="confirmClearButton">Hapus Histori Transaksi</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <!-- Modal Income -->
+  <div class="modal fade" id="incomeModal" tabindex="-1" role="dialog" aria-labelledby="incomeModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content bg-success text-white">
+        <div class="modal-header">
+          <h5 class="modal-title" id="incomeModalLabel">Tambah Pendapatan</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Form untuk menambah data pendapatan -->
+          <!-- Anda dapat menambahkan elemen form di sini -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-light text-success">Tambah</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal Outcome -->
+  <div class="modal fade" id="outcomeModal" tabindex="-1" role="dialog" aria-labelledby="outcomeModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content bg-primary text-white">
+        <div class="modal-header">
+          <h5 class="modal-title" id="outcomeModalLabel">Tambah Pengeluaran</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Form untuk menambah data pengeluaran -->
+          <!-- Anda dapat menambahkan elemen form di sini -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-light text-primary">Tambah</button>
+        </div>
+      </div>
+    </div>
+  </div>  
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="scripts.js"></script>
+</body>
+</html>
